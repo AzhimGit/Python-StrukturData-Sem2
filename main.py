@@ -61,9 +61,9 @@ class DatabaseManager:
                 dbname=dbname, user=user, password=password, host=host, port=port
             )
             self.cursor = self.conn.cursor()
-            print("Koneksi PostgreSQL berhasil!")
+            print("Koneksi PostgreSQL berhasil")
         except Exception as e:
-            print(f"Gagal koneksi database: {e}")
+            print(f"Gagal: {e}")
             self.conn = None
 
     def get_all_data(self):
@@ -95,7 +95,7 @@ class DatabaseManager:
             return True
         except Exception as e:
             self.conn.rollback()
-            print(f"Error database: {e}")
+            print(f"Error: {e}")
             return False
 
     def save_restock_gudang(self, pid, amount, new_gudang_stock):
@@ -107,7 +107,7 @@ class DatabaseManager:
             return True
         except Exception as e:
             self.conn.rollback()
-            print(f"Error database: {e}")
+            print(f"Error: {e}")
             return False
 
 
@@ -116,7 +116,7 @@ class SistemPeternakan:
         self.db = DatabaseManager("petelur", "postgres", "root", "localhost", "5432")
 
         if not self.db.conn:
-            print("Aplikasi tidak bisa berjalan tanpa database.")
+            print("Tidak ada database.")
             return
 
         db_data = self.db.get_all_data()
@@ -146,7 +146,7 @@ class SistemPeternakan:
 
     def _update_stocks_and_save(self, cid, pid, amount):
         if self.gudang_stock.get(pid, 0) < amount:
-            print(f"Gagal! Stok gudang tidak cukup.")
+            print(f"Stoknya ngga cukup.")
             return False
 
         new_gudang = self.gudang_stock[pid] - amount
@@ -163,21 +163,21 @@ class SistemPeternakan:
         self.heap_all.update_item(cid, pid, new_kandang)
         self.heap_gudang.update_item(pid, 0, new_gudang)
 
-        print(f"Berhasil! {amount}kg disuplai ke {self.cage_names[cid]} (Tersimpan di DB).")
+        print(f"Mantap! {amount} karung disupply ke {self.cage_names[cid]}.")
         return True
 
     def run(self):
         while True:
             print("\n" + "=" * 50)
-            print("SISTEM MANAJEMEN PAKAN PETERNAKAN")
+            print("SISTEM MANAJEMEN PAKAN PETELUR")
             print("=" * 50)
-            print("1. Cek stok pakan (Semua Kandang)")
+            print("1. Cek stok pakan")
             print("2. Cek stok pakan per kandang")
-            print("3. Cek stok gudang")
-            print("4. Lihat riwayat transaksi")
-            print("5. Keluar")
+            print("3. Cek stok pakan di gudang")
+            print("4. Lihat riwayat supply")
+            print("5. Selesai")
 
-            choice = input("Pilih menu (1-5): ")
+            choice = input("Pilih menu 1-5: ")
 
             if choice == '1':
                 self.menu_cek_semua_kandang()
@@ -188,80 +188,80 @@ class SistemPeternakan:
             elif choice == '4':
                 self.menu_riwayat()
             elif choice == '5':
-                print("Terima kasih, sistem ditutup.")
+                print("Berhenti.")
                 break
             else:
-                print("Pilihan tidak valid, silakan coba lagi.")
+                print("Pilihan tidak valid.")
 
     def menu_cek_semua_kandang(self):
-        print("\nSTOK PAKAN SEMUA KANDANG (Prioritas Terendah)")
+        print("\nSTOK PAKAN SEMUA KANDANG")
         sorted_items = self.heap_all.get_sorted_view()
         for i, (stock, cid, pid, name) in enumerate(sorted_items, 1):
-            print(f"  {i}. {name} : {stock}kg")
+            print(f"  {i}. {name} : {stock} karung")
 
         choice = input("\nApakah ingin melakukan supply dari gudang? (y/n): ").lower()
         if choice == 'y':
             try:
-                cid = int(input("Pilih ID Kandang (1-3): "))
-                pid = int(input(f"Pilih ID Pakan ({self.get_pakan_prompt()}): "))
-                amount = int(input("Masukkan jumlah supply (kg): "))
+                cid = int(input("Pilih Kandang 1-3: "))
+                pid = int(input(f"Pilih Pakan ({self.get_pakan_prompt()}): "))
+                amount = int(input("Masukkan jumlah supply (karung): "))
                 if 1 <= cid <= 3 and pid in self.feed_names and amount > 0:
                     self._update_stocks_and_save(cid, pid, amount)
                 else:
-                    print("Input tidak valid!")
+                    print("Input tidak valid.")
             except ValueError:
-                print("Input harus berupa angka!")
+                print("Harus berupa angka")
 
     def menu_cek_per_kandang(self):
         print("\nCEK STOK PER KANDANG")
         try:
-            cid = int(input("Pilih Kandang (1-3): "))
+            cid = int(input("Pilih Kandang 1-3: "))
             if cid not in [1, 2, 3]:
-                print("Kandang tidak ditemukan!")
+                print("Kandang tidak valid")
                 return
 
-            print(f"\nStok {self.cage_names[cid]} (Prioritas Terendah):")
+            print(f"\nStok {self.cage_names[cid]}:")
             sorted_items = self.heap_cages[cid].get_sorted_view()
             for i, (stock, _, pid, name) in enumerate(sorted_items, 1):
-                print(f"  {i}. {name} : {stock}kg")
+                print(f"  {i}. {name} : {stock} karung")
 
             choice = input("\nApakah ingin melakukan supply dari gudang? (y/n): ").lower()
             if choice == 'y':
-                pid = int(input(f"Pilih ID Pakan ({self.get_pakan_prompt()}): "))
-                amount = int(input("Masukkan jumlah supply (kg): "))
+                pid = int(input(f"Pilih Pakan ({self.get_pakan_prompt()}): "))
+                amount = int(input("Masukkan jumlah supply (karung): "))
                 if pid in self.feed_names and amount > 0:
                     self._update_stocks_and_save(cid, pid, amount)
                 else:
-                    print("Input tidak valid!")
+                    print("Input tidak valid.")
         except ValueError:
-            print("Input harus berupa angka!")
+            print("Harus berupa angka.")
 
     def menu_cek_gudang(self):
-        print("\nSTOK GUDANG (Prioritas Terendah)")
+        print("\nSTOK GUDANG")
         sorted_items = self.heap_gudang.get_sorted_view()
         for i, (stock, pid, _, name) in enumerate(sorted_items, 1):
-            print(f"  {i}. {name} : {stock}kg")
+            print(f"  {i}. {name} : {stock} karung")
 
-        choice = input("\nApakah ingin melakukan restock gudang dari supplier? (y/n): ").lower()
+        choice = input("\nApakah ingin melakukan restock gudang? (y/n): ").lower()
         if choice == 'y':
             try:
-                pid = int(input(f"Pilih ID Pakan ({self.get_pakan_prompt()}): "))
-                amount = int(input("Masukkan jumlah restock (kg): "))
+                pid = int(input(f"Pilih Pakan ({self.get_pakan_prompt()}): "))
+                amount = int(input("Masukkan jumlah restock (karung): "))
                 if pid in self.feed_names and amount > 0:
                     new_gudang = self.gudang_stock.get(pid, 0) + amount
                     if self.db.save_restock_gudang(pid, amount, new_gudang):
                         self.gudang_stock[pid] = new_gudang
                         self.heap_gudang.update_item(pid, 0, new_gudang)
-                        print(f"Berhasil! Gudang {self.feed_names[pid]} bertambah {amount}kg.")
+                        print(f"Mantap! Gudang {self.feed_names[pid]} bertambah {amount} karung.")
                     else:
-                        print("Gagal menyimpan ke database.")
+                        print("Gagal.")
                 else:
-                    print("Input tidak valid!")
+                    print("Input tidak valid.")
             except ValueError:
-                print("Input harus berupa angka!")
+                print("Input harus berupa angka.")
 
     def menu_riwayat(self):
-        print("\nRIWAYAT TRANSAKSI (Dari Database)")
+        print("\nRIWAYAT TRANSAKSI")
         try:
             self.db.cursor.execute("""
                 SELECT 'Supply Kandang' as tipe, tanggal_supply_kandang as tgl, kuantitas, pakan_id_pakan, kandang_id_kandang 
@@ -273,14 +273,14 @@ class SistemPeternakan:
             """)
             rows = self.db.cursor.fetchall()
             if not rows:
-                print("Belum ada transaksi yang tercatat.")
+                print("Tidak ada supply yang tercatat.")
                 return
 
             for i, row in enumerate(rows, 1):
                 tipe, tgl, kuantitas, pid, lokasi_id = row
                 nama_pakan = self.feed_names.get(pid, "Unknown")
                 lokasi = f"Kandang {lokasi_id}" if tipe == "Supply Kandang" else "Gudang"
-                print(f"  {i}. [{tgl}] {tipe} - {kuantitas}kg {nama_pakan} ke {lokasi}")
+                print(f"  {i}. [{tgl}] {tipe} - {kuantitas} karung {nama_pakan} ke {lokasi}")
                 print("-" * 40)
         except Exception as e:
             print(f"Gagal mengambil riwayat: {e}")
