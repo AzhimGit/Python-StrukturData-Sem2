@@ -1,26 +1,26 @@
-# 🐔 Sistem Manajemen Pakan Peternakan (Heap & PostgreSQL)
+# Sistem Manajemen Pakan Peternakan (Heap & PostgreSQL)
 
 Sistem manajemen stok pakan untuk peternakan ayam petelur yang menggunakan struktur data **Min-Heap** untuk mengurutkan prioritas stok terendah secara otomatis. Sistem ini juga terintegrasi dengan **PostgreSQL** untuk penyimpanan data.
 
-## ✨ Fitur Utama
-- 📊 **Cek Stok Semua Kandang**: Menampilkan prioritas kandang yang stok pakannya paling rendah.
-- 🏠 **Cek Stok Per Kandang**: Melihat detail stok per kandang dengan prioritas terendah.
-- 🏭 **Cek Stok Gudang**: Memantau stok gudang untuk kebutuhan restock.
-- 🔄 **Supply & Restock**: Melakukan transfer pakan dari gudang ke kandang, atau restock gudang dari supplier.
-- 📜 **Riwayat Transaksi**: Mencatat semua aktivitas supply dengan timestamp otomatis.
+## Fitur Utama
+-  **Cek Stok Semua Kandang**: Menampilkan prioritas kandang yang stok pakannya paling rendah.
+-  **Cek Stok Per Kandang**: Melihat detail stok per kandang dengan prioritas terendah.
+-  **Cek Stok Gudang**: Memantau stok gudang untuk kebutuhan restock.
+-  **Supply & Restock**: Melakukan transfer pakan dari gudang ke kandang, atau restock gudang dari supplier.
+-  **Riwayat Transaksi**: Mencatat semua aktivitas supply dengan timestamp otomatis.
 
-## 🛠️ Tools yang Digunakan
+## Tools yang Digunakan
 - **Python 3.x** - Bahasa pemrograman utama
 - **PostgreSQL** - Sistem manajemen database
 - **psycopg2** - Library adapter PostgreSQL untuk Python
 - **Min-Heap** - Struktur data utama diimplementasikan dari nol tanpa library `heapq`
 
-## 📋 Prasyarat
+## Prasyarat
 Pastikan sudah menginstall:
 1. [Python 3.x](https://www.python.org/downloads/)
 2. [PostgreSQL](https://www.postgresql.org/download/)
 
-## 🚀 Cara Instalasi & Menjalankan
+## Cara Instalasi & Menjalankan
 
 ### 1. Clone Repository
 ```bash
