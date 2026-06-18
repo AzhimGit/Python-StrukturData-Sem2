@@ -1,6 +1,6 @@
 # 🐔 Sistem Manajemen Pakan Peternakan (Heap & PostgreSQL)
 
-Sistem manajemen stok pakan untuk peternakan ayam petelur yang menggunakan struktur data **Min-Heap** untuk mengurutkan prioritas stok terendah secara otomatis. Sistem ini juga terintegrasi dengan **PostgreSQL** untuk penyimpanan data yang persisten.
+Sistem manajemen stok pakan untuk peternakan ayam petelur yang menggunakan struktur data **Min-Heap** untuk mengurutkan prioritas stok terendah secara otomatis. Sistem ini juga terintegrasi dengan **PostgreSQL** untuk penyimpanan data.
 
 ## ✨ Fitur Utama
 - 📊 **Cek Stok Semua Kandang**: Menampilkan prioritas kandang yang stok pakannya paling rendah.
@@ -11,12 +11,12 @@ Sistem manajemen stok pakan untuk peternakan ayam petelur yang menggunakan struk
 
 ## 🛠️ Tools yang Digunakan
 - **Python 3.x** - Bahasa pemrograman utama
-- **PostgreSQL** - Sistem manajemen database relasional
+- **PostgreSQL** - Sistem manajemen database
 - **psycopg2** - Library adapter PostgreSQL untuk Python
 - **Min-Heap (Custom)** - Struktur data utama diimplementasikan dari nol tanpa library `heapq`
 
 ## 📋 Prasyarat
-Pastikan kamu sudah menginstall:
+Pastikan sudah menginstall:
 1. [Python 3.x](https://www.python.org/downloads/)
 2. [PostgreSQL](https://www.postgresql.org/download/)
 
@@ -42,8 +42,8 @@ pip install psycopg2-binary
 ```
 ### 3. Setup Database PostgreSQL
 Buat database baru di PostgreSQL (nama bebas)
-jalankan query SQL [berikut](https://justpaste.it/et0vt/pdf) untuk membuat tabel-tabel yang diperlukan
-jalankan query SQL [berikut](https://justpaste.it/e9kg8/pdf) untuk membuat data dummy
+Jalankan query SQL [berikut](https://justpaste.it/et0vt/pdf) untuk membuat tabel-tabel yang diperlukan
+Jalankan query SQL [berikut](https://justpaste.it/e9kg8/pdf) untuk membuat data dummy
 ### 4. Konfigurasi Koneksi Database
 Buka main.py dan sesuaikan dengan Database di laptopmu
 ```bash
