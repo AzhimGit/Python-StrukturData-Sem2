@@ -13,7 +13,7 @@ Sistem manajemen stok pakan untuk peternakan ayam petelur yang menggunakan struk
 - **Python 3.x** - Bahasa pemrograman utama
 - **PostgreSQL** - Sistem manajemen database
 - **psycopg2** - Library adapter PostgreSQL untuk Python
-- **Min-Heap (Custom)** - Struktur data utama diimplementasikan dari nol tanpa library `heapq`
+- **Min-Heap** - Struktur data utama diimplementasikan dari nol tanpa library `heapq`
 
 ## 📋 Prasyarat
 Pastikan sudah menginstall:
