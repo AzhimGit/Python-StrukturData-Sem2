@@ -41,9 +41,9 @@ source .venv/bin/activate
 pip install psycopg2-binary
 ```
 ### 3. Setup Database PostgreSQL
-Buat database baru di PostgreSQL (nama bebas)
-Jalankan query SQL [berikut](https://justpaste.it/et0vt/pdf) untuk membuat tabel-tabel yang diperlukan
-Jalankan query SQL [berikut](https://justpaste.it/e9kg8/pdf) untuk membuat data dummy
+- Buat database baru di PostgreSQL (nama bebas).
+- Jalankan query SQL [berikut](https://justpaste.it/et0vt/pdf) untuk membuat tabel-tabel yang diperlukan.
+- Jalankan query SQL [berikut](https://justpaste.it/e9kg8/pdf) untuk membuat data dummy.
 ### 4. Konfigurasi Koneksi Database
 Buka main.py dan sesuaikan dengan Database di laptopmu
 ```bash
