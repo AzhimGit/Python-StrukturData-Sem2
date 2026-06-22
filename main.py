@@ -261,7 +261,7 @@ class SistemPeternakan:
                 print("Input harus berupa angka.")
 
     def menu_riwayat(self):
-        print("\nRIWAYAT TRANSAKSI")
+        print("\nRIWAYAT SUPPLY")
         try:
             self.db.cursor.execute("""
                 SELECT 'Supply Kandang' as tipe, tanggal_supply_kandang as tgl, kuantitas, pakan_id_pakan, kandang_id_kandang 
